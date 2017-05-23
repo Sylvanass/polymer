@@ -1,5 +1,7 @@
 # WebStorm
 
 .idea
-bower_components
-node_modules
+bower_components/
+build/
+node_modules/
+temp/
