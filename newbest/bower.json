@@ -1,0 +1,20 @@
+{
+  "name": "newbest",
+  "homepage": "https://github.com/Sylvanass/polymer",
+  "authors": [
+    "Sylvanass <hezhou920@gmail.com>"
+  ],
+  "description": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^2.0.0",
+    "app-layout": "^2.0.0"
+  }
+}
