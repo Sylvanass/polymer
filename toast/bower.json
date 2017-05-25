@@ -1,0 +1,17 @@
+{
+  "name": "toast",
+  "homepage": "https://github.com/Sylvanass/polymer",
+  "authors": [
+    "Sylvanass <hezhou920@gmail.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^2.0.0"
+  }
+}

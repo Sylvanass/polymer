@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no">
+  <title>toast</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../common-toast.html">
+</head>
+<body>
+<style>
+  html {
+    --common-border-radius: 6px;
+    font-size: 62.5%;
+  }
+</style>
+<button style="height: 50px;width:60px;" onclick="save()">保存</button>
+
+<script>
+  var toast = document.querySelector('common-toast')
+  if (!toast) {
+    toast = document.createElement('common-toast');
+    document.body.appendChild(toast);
+  }
+  function save() {
+    var num = Math.random();
+    if (num > 0.5) {
+      toast.show(
+          {
+            text: '保存成功',
+            type: 'success'
+          }
+      );
+    } else {
+      toast.show(
+          {
+            text: '保存失败',
+            type: 'fail'
+          }
+      );
+    }
+  }
+
+</script>
+</body>
+</html>

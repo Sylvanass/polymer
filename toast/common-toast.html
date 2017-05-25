@@ -1,0 +1,162 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+
+<dom-module id="common-toast">
+  <template>
+
+    <style>
+      @keyframes show {
+        from {
+          opacity: 0;
+          transform: translate(-50%, +60%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, 0%);
+        }
+      }
+
+      @keyframes hide {
+        from {
+          opacity: 1;
+          transform: translate(-50%, 0%);
+        }
+        to {
+          opacity: 0;
+          transform: translate(-50%, +60%);
+        }
+      }
+
+      :host {
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        padding: 6px;
+        min-width: 100px;
+        max-width: 600px;
+        overflow: hidden;
+        display: none;
+        font-size: 1.4rem;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%);
+        text-align: center;
+        background-color: #1e1e1e;
+        color: #fff;
+        -webkit-border-radius: var(--common-border-radius, 5px);
+        -moz-border-radius: var(--common-border-radius, 5px);
+        border-radius: var(--common-border-radius, 5px);
+        -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        z-index: 9999;
+      }
+
+      :host([type=success]) {
+        background-color: #168011;
+      }
+
+      :host([type=fail]) {
+        background-color: #d20b35;
+      }
+
+      :host([animation]) {
+        display: block;
+      }
+
+      :host([animation=show]) {
+        -webkit-animation: show 500ms;
+        -o-animation: show 500ms;
+        animation: show 500ms;
+      }
+
+      :host([animation=hide]) {
+        -webkit-animation: hide 500ms;
+        -o-animation: hide 500ms;
+        animation: hide 500ms;
+      }
+    </style>
+
+    <div class="icon-notify-circle">[[text]]</div>
+  </template>
+
+  <script>
+    (function () {
+      class Toast extends Polymer.Element {
+        static get is() {
+          return 'common-toast';
+        };
+
+        static get properties() {
+          return {
+            /**
+             * toast中的文本内容
+             */
+            text: {
+              type: String
+            },
+
+            /**
+             * 持续多长时间后自动关闭，单位为：ms
+             */
+            duration: {
+              type: Number,
+              value: 1200
+            },
+
+            /**
+             * 提示类型：有success、fail、default三种类型
+             */
+            type: {
+              type: String,
+              reflectToAttribute: true,
+              value: 'default'
+            },
+
+            animation: {
+              type: String,
+              reflectToAttribute: true
+            },
+
+            icon: {
+              type: String,
+              value: 'icon-notify-circle'
+            }
+          };
+        };
+
+        ready() {
+          super.ready();
+          this.addEventListener('webkitAnimationEnd', this._onAnimateEnd);
+          this.addEventListener('animationend', this._onAnimateEnd);
+        };
+
+        _onAnimateEnd(e) {
+          if (this.animation === 'hide') {
+            this.removeAttribute('animation');
+          }
+        };
+
+        /**
+         * 显示toast
+         * @param {Object} props
+         */
+        show(props) {
+          if (!props || !props.text) {
+            return;
+          }
+          this.setProperties(props);
+          this.animation = 'show';
+
+          var self = this;
+          setTimeout(function () {
+            self.animation = 'hide';
+          }, this.duration);
+        };
+      }
+
+      customElements.define(Toast.is, Toast);
+    })();
+  </script>
+</dom-module>
